@@ -1,10 +1,21 @@
 <template>
   <div>
     <h1>Home</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus laborum rem molestias optio unde, minus voluptatibus, nisi sit fugiat consequuntur cum atque hic cupiditate, facere architecto eaque commodi harum?</p>
+    <div>
+      <span>{{ user.email }}</span>
+      <button @click="handleLogout">Logout</button>
+    </div>
   </div>
 </template>
 
 <script setup>
+  import { storeToRefs } from 'pinia';
+import { useAuthStore } from '../../stores/auth'
+  
+  const authStore = useAuthStore()
+  const { user, logout } = storeToRefs(authStore)
 
+  function handleLogout() {
+    logout()
+  }
 </script>
