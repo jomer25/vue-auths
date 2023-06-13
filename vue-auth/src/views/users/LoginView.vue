@@ -5,14 +5,14 @@
     <form @submit.prevent="handleLogin">
       <h1>Login View</h1>
       <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model="email" placeholder="Email">
+        <label>Email</label>
+        <input type="email" v-model="email" placeholder="Email">
       </div>
       <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" placeholder="Password">
+        <label>Password</label>
+        <input type="password" v-model="password" placeholder="Password">
       </div>
-      <button>Login</button>
+      <button type="submit">Login</button>
     </form>
   </div>
 </template>
@@ -30,7 +30,7 @@
   const { error, isLoading } = storeToRefs(authStore)
 
   async function handleLogin() {
-    await authStore.login(email.value, password.value);
+    await authStore.signin(email.value, password.value);
     email.value = '';
     password.value = '';
   }
