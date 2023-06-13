@@ -6,7 +6,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
   const error = ref(null)
   const isLoading = ref(false)
 
-  async function login(email,password) {
+  async function signin(email,password) {
     try {
       isLoading.value = true
       const response = await fetch('/api/users/login', {
@@ -18,6 +18,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
   
       if(response.ok) {
         localStorage.setItem('user', JSON.stringify(data))
+        user.value = data
       } else {
         error.value = data.error
       }
@@ -40,6 +41,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
   
       if(response.ok) {
         localStorage.setItem('user', JSON.stringify(data))
+        user.value = data
       } else {
         error.value = data.error
       }
@@ -50,5 +52,10 @@ export const useAuthStore = defineStore('AuthStore', () => {
     }
   }
 
-  return { error, isLoading, login, signup }
+  function logout() {
+    localStorage.removeItem('user')
+    user.value = null
+  }
+
+  return { error, isLoading, signin, signup, logout }
 })
